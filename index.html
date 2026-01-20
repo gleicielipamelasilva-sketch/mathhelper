@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>MathHelper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-4">📐 MathHelper</h1>
+    <p class="text-center text-slate-600 mb-6">Faça contas de matemática facilmente</p>
+
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      <input id="n1" type="number" placeholder="Número 1" class="border rounded-lg p-2" />
+      <input id="n2" type="number" placeholder="Número 2" class="border rounded-lg p-2" />
+    </div>
+
+    <div class="grid grid-cols-4 gap-2 mb-4">
+      <button onclick="calcular('+')" class="btn">+</button>
+      <button onclick="calcular('-')" class="btn">−</button>
+      <button onclick="calcular('*')" class="btn">×</button>
+      <button onclick="calcular('/')" class="btn">÷</button>
+    </div>
+
+    <div class="bg-slate-50 border rounded-lg p-3 text-center mb-4">
+      <span class="text-slate-500">Resultado:</span>
+      <div id="resultado" class="text-2xl font-semibold">—</div>
+    </div>
+
+    <h2 class="font-semibold mb-2">Histórico</h2>
+    <ul id="historico" class="text-sm text-slate-700 space-y-1 max-h-32 overflow-auto"></ul>
+  </div>
+
+  <style>
+    .btn {
+      background: #0f172a;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 0.75rem;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background: #1e293b;
+      transform: scale(1.05);
+    }
+  </style>
+
+  <script>
+    function calcular(op) {
+      const n1 = parseFloat(document.getElementById('n1').value);
+      const n2 = parseFloat(document.getElementById('n2').value);
+
+      if (isNaN(n1) || isNaN(n2)) {
+        alert('Digite os dois números');
+        return;
+      }
+
+      let res;
+      switch (op) {
+        case '+': res = n1 + n2; break;
+        case '-': res = n1 - n2; break;
+        case '*': res = n1 * n2; break;
+        case '/':
+          if (n2 === 0) {
+            alert('Não é possível dividir por zero');
+            return;
+          }
+          res = n1 / n2;
+          break;
+      }
+
+      document.getElementById('resultado').innerText = res;
+
+      const item = document.createElement('li');
+      item.textContent = `${n1} ${op} ${n2} = ${res}`;
+      document.getElementById('historico').prepend(item)
+    }
+  </script>
+</body>
+</html>
+index.html
